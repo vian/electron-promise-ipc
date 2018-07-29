@@ -48,7 +48,7 @@ export class PromiseIpcMain {
     ipcMain.on(route, (event, replyChannel, ...dataArgs) => {
       // Chaining off of Promise.resolve() means that listener can return a promise, or return
       // synchronously -- it can even throw. The end result will still be handled promise-like.
-      Promise.resolve().then(() => listener(...dataArgs))
+      Promise.resolve().then(() => listener(event, ...dataArgs))
         .then((results) => {
           event.sender.send(replyChannel, 'success', results);
         })
